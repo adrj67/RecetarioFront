@@ -1,0 +1,55 @@
+.formulario-receta {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  max-width: 800px;
+  margin: auto;
+}
+
+.grid-campos {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: 1rem;
+}
+
+.fila-ingrediente {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  flex-wrap: wrap;
+  color: black;
+}
+
+.campo {
+  width: 100%;
+}
+
+.botones {
+  display: flex;
+  justify-content: flex-end;
+  gap: 1rem;
+  margin-top: 1rem;
+}
+
+.item-ingrediente {
+  min-height: 60px; /* Asegura un alto adecuado */
+  align-items: center;
+  padding: 8px 16px;
+  border-bottom: 1px solid #e0e0e0;
+}
+
+.texto-ingrediente {
+  color: #212121;
+  
+  font-weight: 500;
+  font-size: 16px;
+  flex: 1;
+  overflow-wrap: break-word;
+}
+
+mat-list {
+  background-color: #fafafa;
+  border-radius: 8px;
+  box-shadow: 0 1px 4px rgba(0,0,0,0.1);
+  padding: 8px 0;
+}

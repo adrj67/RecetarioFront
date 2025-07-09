@@ -1,0 +1,98 @@
+<h2>{{ esEdicion ? 'Editar receta' : 'Nueva receta' }}</h2>
+
+<form [formGroup]="formulario" (ngSubmit)="guardar()" class="formulario-receta">
+
+  <!-- Campos de texto -->
+  <div class="grid-campos">
+    <mat-form-field appearance="fill" class="campo">
+      <mat-label>Nombre</mat-label>
+      <input matInput formControlName="nombre" />
+    </mat-form-field>
+
+    <mat-form-field appearance="fill" class="campo">
+      <mat-label>Autor</mat-label>
+      <input matInput formControlName="autor" />
+    </mat-form-field>
+
+    <mat-form-field appearance="fill" class="campo">
+      <mat-label>Tipo</mat-label>
+      <input matInput formControlName="tipo" />
+    </mat-form-field>
+
+    <mat-form-field appearance="fill" class="campo">
+      <mat-label>Porciones</mat-label>
+      <input matInput type="number" formControlName="porciones" />
+    </mat-form-field>
+  </div>
+
+  <mat-form-field appearance="fill" class="campo">
+    <mat-label>Procedimiento</mat-label>
+    <textarea matInput rows="4" formControlName="procedimiento"></textarea>
+  </mat-form-field>
+
+  <mat-form-field appearance="fill" class="campo">
+    <mat-label>Tips</mat-label>
+    <textarea matInput rows="2" formControlName="tips"></textarea>
+  </mat-form-field>
+
+  <mat-form-field appearance="fill" class="campo">
+    <mat-label>URL de la imagen</mat-label>
+    <input matInput formControlName="imagenUrl" />
+  </mat-form-field>
+  <!-- Selección de imagen -->
+  <div class="campo">
+    <label for="imagen">Imagen (opcional)</label>
+    <input type="file" id="imagen" (change)="onFileSelected($event)" accept="image/*">
+  </div>
+
+
+  <!-- Ingredientes -->
+  <h3>Ingredientes</h3>
+
+  <div class="fila-ingrediente">
+    <mat-form-field appearance="fill">
+      <mat-label>Ingrediente</mat-label>
+      <mat-select  [(ngModel)]="ingredienteSeleccionado" name="ingredienteSeleccionado"  [ngModelOptions]="{standalone: true}">
+        <mat-option *ngFor="let ing of ingredientesDisponibles" [value]="ing.id">
+          {{ ing.nombre }}
+        </mat-option>
+      </mat-select>
+    </mat-form-field>
+
+    <mat-form-field appearance="fill">
+      <mat-label>Cantidad</mat-label>
+      <input matInput type="number" [(ngModel)]="cantidadSeleccionada" name="cantidadSeleccionada"  [ngModelOptions]="{standalone: true}"/>
+    </mat-form-field>
+
+    <mat-form-field appearance="fill">
+      <mat-label>Unidad</mat-label>
+      <input matInput [(ngModel)]="unidadSeleccionada" name="unidadSeleccionada"  [ngModelOptions]="{standalone: true}" />
+    </mat-form-field>
+
+    <button mat-icon-button color="primary" (click)="agregarIngrediente()" type="button" matTooltip="Agregar ingrediente">
+      <mat-icon>add_circle</mat-icon>
+    </button>
+  </div>
+
+  <!-- Lista de ingredientes agregados -->
+  <mat-list>
+    <mat-list-item *ngFor="let ing of ingredientesReceta; let i = index" class="item-ingrediente">
+      <div class="texto-ingrediente">
+        {{ ing.nombreIngrediente }} - {{ ing.cantidad }} {{ ing.unidad }}
+      </div>
+      <button mat-icon-button color="primary" (click)="ingredientesReceta.splice(i, 1)" matTooltip="Eliminar">
+        <mat-icon>delete</mat-icon>
+      </button>
+    </mat-list-item>
+  </mat-list>
+
+  <!-- Botones -->
+  <div class="botones">
+    <button mat-raised-button color="primary" type="submit">
+      <mat-icon>save</mat-icon> Guardar
+    </button>
+    <button mat-stroked-button color="danger" type="button" (click)="cancelar()">
+      <mat-icon>cancel</mat-icon> Cancelar
+    </button>
+  </div>
+</form>

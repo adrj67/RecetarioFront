@@ -1,0 +1,25 @@
+<form [formGroup]="formulario" (ngSubmit)="guardar()" class="formulario">
+  <mat-form-field appearance="fill">
+    <mat-label>Nombre</mat-label>
+    <input matInput formControlName="nombre" required />
+  </mat-form-field>
+
+  <mat-form-field appearance="fill">
+    <mat-label>Unidad</mat-label>
+    <input matInput formControlName="unidad" required />
+  </mat-form-field>
+
+  <mat-form-field appearance="fill">
+    <mat-label>Costo Unitario</mat-label>
+    <input matInput type="number" formControlName="costoUnitario" required />
+  </mat-form-field>
+
+  <button mat-raised-button color="primary" type="submit" [disabled]="formulario.invalid">
+    <mat-icon>published_with_changes</mat-icon> {{ esEdicion ? 'Actualizar' : 'Guardar' }}
+  </button>
+  <button mat-raised-button color="accent" type="button" (click)="volver()">
+  <mat-icon>arrow_back</mat-icon> Volver
+  </button>
+
+</form>
+

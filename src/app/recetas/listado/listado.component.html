@@ -1,0 +1,43 @@
+<!-- <div class="contenedor-recetas">
+  <mat-card *ngFor="let receta of recetas" class="tarjeta-receta">
+    <mat-card-title class="titulo-receta">{{ receta.nombre }}</mat-card-title>
+    <mat-card-subtitle>{{ receta.tipo }} • {{ receta.autor }}</mat-card-subtitle>
+    <mat-card-actions>
+      <button mat-button color="primary" [routerLink]="['/recetas', receta.id]">Ver</button>
+      <button mat-button color="accent" [routerLink]="['/recetas', receta.id, 'editar']">Editar</button>
+    </mat-card-actions>
+  </mat-card>
+
+  <button mat-raised-button color="primary" [routerLink]="['/recetas/nueva']">
+    Nueva receta
+  </button>
+</div> -->
+
+<div class="contenedor-recetas">
+  <button mat-raised-button color="primary" (click)="nuevaReceta()">
+    <mat-icon>add</mat-icon> Nueva receta
+  </button>
+
+  <div class="grid-recetas">
+    <mat-card *ngFor="let receta of recetas" class="tarjeta-receta">
+      <mat-card-header>
+        <img *ngIf="receta.imagenUrl" mat-card-image [src]="receta.imagenUrl" alt="{{ receta.nombre }}" />
+        <mat-card-title class="titulo-receta">{{ receta.nombre }}</mat-card-title>
+        <mat-card-subtitle class="subtitulo-receta">{{ receta.tipo }} - {{ receta.autor }}</mat-card-subtitle>
+      </mat-card-header>
+      <mat-card-content>
+        <p>Porciones: {{ receta.porciones }}</p>
+        <p>Costo total: {{ receta.costoTotal | currency:'ARS' }}</p>
+      </mat-card-content>
+      <mat-card-actions>
+        <button mat-button color="primary" (click)="verFormulario(receta.id)">
+          <mat-icon>edit</mat-icon> Editar
+        </button>
+        <button mat-button color="warn" (click)="eliminar(receta.id)">
+          <mat-icon>delete</mat-icon> Eliminar
+        </button>
+      </mat-card-actions>
+    </mat-card>
+  </div>
+</div>
+
