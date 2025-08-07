@@ -33,7 +33,7 @@ export class ListadoComponent implements OnInit {
 
   ngOnInit(): void {
     this.ingredienteService.obtenerTodos().subscribe({
-      next: (datos) => this.ingredientes = datos,
+      next: (datos) => this.ingredientes = datos.sort((a, b) => a.nombre.localeCompare(b.nombre)),
       error: (err) => console.error('Error cargando ingredientes: ', err)
     });
   }

@@ -1,4 +1,10 @@
 <div class="contenedor-ingredientes">
+
+  <button mat-raised-button color="primary" [routerLink]="['/ingredientes/nuevo']">
+    <span class="material-icons">add</span> Nuevo ingrediente
+  </button>
+
+  <div class="grid-ingredientes">
   <mat-card *ngFor="let ingrediente of ingredientes" class="tarjeta-ingrediente">
     <mat-card-title class="titulo-ingrediente">
       <span class="material-icons">play_for_work</span> {{ ingrediente.nombre }}</mat-card-title>
@@ -12,8 +18,5 @@
         <mat-icon>delete</mat-icon> Eliminar</button>
     </mat-card-actions>
   </mat-card>
-
-  <button mat-raised-button color="primary" [routerLink]="['/ingredientes/nuevo']">
-    <span class="material-icons">add</span> Nuevo ingrediente
-  </button>
+  </div>
 </div>

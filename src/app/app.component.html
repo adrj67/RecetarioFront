@@ -1,4 +1,24 @@
 <mat-toolbar color="primary">
-      Recetario
+ <!-- <span>Recetario</span> 
+
+  <span class="spacer"></span> -->
+
+  <button mat-button [matMenuTriggerFor]="menu" color="primary">
+    <mat-icon>menu</mat-icon> Menú
+  </button>
+  <mat-menu #menu="matMenu">
+    <button mat-menu-item [routerLink]="['/recetas']">
+      <mat-icon>flatware</mat-icon>
+      <span>Recetas</span>
+    </button>
+    <button mat-menu-item [routerLink]="['/ingredientes']">
+      <mat-icon>more_vert</mat-icon>
+      <span>Ingredientes</span>
+    </button>
+    <button mat-menu-item [routerLink]="['/recetas/detalle']">
+      <mat-icon>filter_list</mat-icon>
+      <span>Detalle Recetas</span>
+    </button>
+  </mat-menu>
 </mat-toolbar>
 <router-outlet />

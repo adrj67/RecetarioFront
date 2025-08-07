@@ -1,0 +1,29 @@
+<div>
+
+<form [formGroup]="formulario" (ngSubmit)="guardar()">
+  <h5 mat-dialog-title style="margin-left: 3rem">Agregar Ingrediente</h5>
+  <mat-form-field appearance="fill" style="margin-left: 3rem">
+    <mat-label>Nombre</mat-label>
+    <input matInput formControlName="nombre" required />
+  </mat-form-field>
+
+  <mat-form-field appearance="fill" style="margin-left: 3rem">
+    <mat-label>Unidad</mat-label>
+    <input matInput formControlName="unidad" required />
+  </mat-form-field>
+
+  <mat-form-field appearance="fill" style="margin-left: 3rem">
+    <mat-label>Costo Unitario</mat-label>
+    <input matInput type="number" formControlName="costoUnitario" required />
+  </mat-form-field>
+
+  <div style="margin-top: 1rem; display: flex; justify-content: flex-end;">
+    <button mat-raised-button color="primary" type="submit" [disabled]="formulario.invalid">
+      <mat-icon>check_circle</mat-icon> Guardar
+    </button>
+    <button mat-raised-button color="warn" type="button" (click)="cancelar()" style="margin-left: 0.5rem;">
+      <mat-icon>cancel</mat-icon> Cancelar
+    </button>
+  </div>
+</form>
+</div>

@@ -48,17 +48,24 @@
 
   <!-- Ingredientes -->
   <h3>Ingredientes</h3>
+  <!-- Crear nuevo ingrediente -->
+  <div class="agregarIngredientes">
+    <button mat-raised-button color="accent" type="button" (click)="abrirDialogoCrearIngrediente()">
+      <mat-icon>add_circle</mat-icon> Agregar nuevo ingrediente
+    </button>
+  </div>
 
   <div class="fila-ingrediente">
     <mat-form-field appearance="fill">
       <mat-label>Ingrediente</mat-label>
-      <mat-select  [(ngModel)]="ingredienteSeleccionado" name="ingredienteSeleccionado"  [ngModelOptions]="{standalone: true}">
-        <mat-option *ngFor="let ing of ingredientesDisponibles" [value]="ing.id">
+      <input type="text" matInput [formControl]="ingredienteControl" [matAutocomplete]="auto">
+      <mat-autocomplete #auto="matAutocomplete" (optionSelected)="seleccionarIngrediente($event.option.value)">
+        <mat-option *ngFor="let ing of ingredientesFiltrados | async" [value]="ing">
           {{ ing.nombre }}
         </mat-option>
-      </mat-select>
+      </mat-autocomplete>
     </mat-form-field>
-
+  
     <mat-form-field appearance="fill">
       <mat-label>Cantidad</mat-label>
       <input matInput type="number" [(ngModel)]="cantidadSeleccionada" name="cantidadSeleccionada"  [ngModelOptions]="{standalone: true}"/>

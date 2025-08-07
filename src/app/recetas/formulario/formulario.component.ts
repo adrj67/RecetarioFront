@@ -12,8 +12,12 @@ import { Ingrediente } from '../../ingredientes/ingrediente.model';
 import { IngredienteService } from '../../ingredientes/ingrediente.service';
 import { MatSelectModule } from '@angular/material/select';
 import { RecetaIngrediente } from '../receta-ingrediente.model';
-import { FormsModule } from '@angular/forms';
+import { FormsModule, FormControl } from '@angular/forms';
 import { MatListModule } from '@angular/material/list';
+import { MatDialog } from '@angular/material/dialog';
+import { FormularioDialogComponent } from '../../ingredientes/formulario/formulario-dialog/formulario-dialog.component';
+import { MatAutocompleteModule } from '@angular/material/autocomplete';
+import { map, Observable, startWith } from 'rxjs';
 
 @Component({
   selector: 'app-formulario-receta',
@@ -28,7 +32,8 @@ import { MatListModule } from '@angular/material/list';
     MatIconModule,
     MatSnackBarModule,
     MatSelectModule,
-    MatListModule
+    MatListModule,
+    MatAutocompleteModule
   ],
   templateUrl: './formulario.component.html',
   styleUrl: './formulario.component.scss'
@@ -45,13 +50,18 @@ export class FormularioComponent implements OnInit {
   cantidadSeleccionada?: number;
   unidadSeleccionada?: string;
 
+  ingredienteControl = new FormControl('');
+  ingredientesFiltrados!: Observable<Ingrediente[]>;
+  //ingredienteSeleccionado?: number;
+
   constructor(
     private fb: FormBuilder,
     private recetaService: RecetaService,
     private route: ActivatedRoute,
     private router: Router,
     private snackBar: MatSnackBar,
-    private ingredienteService: IngredienteService
+    private ingredienteService: IngredienteService,
+    private dialog: MatDialog,
   ) { }
 
   ngOnInit(): void {
@@ -65,15 +75,16 @@ export class FormularioComponent implements OnInit {
       imagenUrl: ['']
     });
 
-
     this.ingredienteService.obtenerTodos().subscribe(data => {
-      this.ingredientesDisponibles = data;
-    });
+    this.ingredientesDisponibles = data;
+    this.ingredientesFiltrados = this.ingredienteControl.valueChanges.pipe(
+      startWith(''),
+      map(value => this.filtrarIngredientes(value || ''))
+    );
+  });  
 
     this.recetaId = Number(this.route.snapshot.paramMap.get('id'));
     this.esEdicion = !!this.recetaId;
-
-
 
     if (this.esEdicion) {
       this.recetaService.obtenerPorId(this.recetaId!).subscribe(receta => {
@@ -95,6 +106,16 @@ export class FormularioComponent implements OnInit {
     }
   }
 
+  // Filtra los ingredientes a medida que escribimos los nombres
+  private filtrarIngredientes(valor: string): Ingrediente[] {
+    const filtro = valor.toLowerCase();
+    return this.ingredientesDisponibles.filter(ing => ing.nombre.toLowerCase().includes(filtro));
+  } 
+
+  seleccionarIngrediente(ingrediente: Ingrediente): void {
+    this.ingredienteSeleccionado = ingrediente.id;
+    this.ingredienteControl.setValue(ingrediente.nombre, { emitEvent: false });
+  }
   imagenSeleccionada: File | null = null;
 
   guardar(): void {
@@ -178,5 +199,21 @@ export class FormularioComponent implements OnInit {
       }
     }
   }
+
+  abrirDialogoCrearIngrediente() {
+  const dialogRef = this.dialog.open(FormularioDialogComponent, {
+    width: '400px',
+    height: '350px',
+    panelClass: 'custom-dialog-container'
+  });
+
+  dialogRef.afterClosed().subscribe((nuevoIngrediente) => {
+    if (nuevoIngrediente) {
+      this.ingredientesDisponibles.push(nuevoIngrediente);
+      this.snackBar.open('Ingrediente agregado exitosamente', 'Cerrar', { duration: 3000 });
+    }
+  });
+}
+
 
 }

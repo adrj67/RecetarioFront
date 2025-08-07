@@ -1,8 +1,9 @@
 .contenedor-ingredientes {
   display: flex;
   flex-direction: column;
+ // width: 200px;
   gap: 1rem;
-  padding: 1rem;
+  padding: 10px;
 }
 
 .tarjeta-ingrediente {
@@ -14,10 +15,8 @@
   //font-weight: bold;
 }
 
-// .snackbar-error {
-//   background-color: #d32f2f;
-//   color: white;
-//   font-weight: bold;
-//   text-align: center;
-//   justify-content: center;
-// }
+.grid-ingredientes {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+  gap: 1rem;
+}

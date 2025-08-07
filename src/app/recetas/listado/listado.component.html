@@ -1,18 +1,3 @@
-<!-- <div class="contenedor-recetas">
-  <mat-card *ngFor="let receta of recetas" class="tarjeta-receta">
-    <mat-card-title class="titulo-receta">{{ receta.nombre }}</mat-card-title>
-    <mat-card-subtitle>{{ receta.tipo }} • {{ receta.autor }}</mat-card-subtitle>
-    <mat-card-actions>
-      <button mat-button color="primary" [routerLink]="['/recetas', receta.id]">Ver</button>
-      <button mat-button color="accent" [routerLink]="['/recetas', receta.id, 'editar']">Editar</button>
-    </mat-card-actions>
-  </mat-card>
-
-  <button mat-raised-button color="primary" [routerLink]="['/recetas/nueva']">
-    Nueva receta
-  </button>
-</div> -->
-
 <div class="contenedor-recetas">
   <button mat-raised-button color="primary" (click)="nuevaReceta()">
     <mat-icon>add</mat-icon> Nueva receta
